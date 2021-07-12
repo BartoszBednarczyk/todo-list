@@ -8,11 +8,19 @@ import { BoardComponent } from './components/board/board.component';
 import { MatCardModule } from '@angular/material/card'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogTaskFormComponent } from './components/dialog-task-form/dialog-task-form.component'
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select'
+import {MatInputModule} from '@angular/material/input';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     BoardComponent,
+    DialogTaskFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -20,7 +28,12 @@ import { MatIconModule } from '@angular/material/icon'
     DragDropModule,
     MatCardModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]
