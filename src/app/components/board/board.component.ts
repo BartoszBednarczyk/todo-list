@@ -13,22 +13,17 @@ import { DialogEdittaskFormComponent } from '../dialog-edittask-form/dialog-edit
   styleUrls: ['./board.component.sass']
 })
 export class BoardComponent implements OnInit {
+
+  storage: Storage = window.localStorage;
   todo: Task[] = []
-
   inProgress: Task[] = []
-
   done: Task[] = []
-  constructor(public dialog: MatDialog) { 
-    this.todo.push(new Task("Make some more coffee","It could be useful to not fall asleep while doing next tasks.", true, "#9b59b6"))
-    this.inProgress.push(new Task("Create ToDoApp","Three sideboards, drag&drop, adding new tasks, editing existing tasks.", true, "#f1c40f"))
-    this.inProgress.push(new Task("Create ToDoApp","Three sideboards, drag&drop, adding new tasks, editing existing tasks.", true, "#e74c3c"))
-    this.inProgress.push(new Task("Create ToDoApp","Three sideboards, drag&drop, adding new tasks, editing existing tasks.", true, "#e74c3c"))
-    this.done.push(new Task("Make a coffee","Just the thing you do first thing firsts.", true, "#e74c3c"))
 
+  constructor(public dialog: MatDialog) { 
   }
 
 
-  openDialog(): void {
+  openAddingTaskDialog(): void {
     const dialogRef = this.dialog.open(DialogTaskFormComponent, {
       width: '400px',
       data: this.todo
@@ -39,17 +34,26 @@ export class BoardComponent implements OnInit {
     });
   }
 
-  openEditDialog(item: Task): void {
+  openEditTaskDialog(item: Task): void {
     const dialogRef = this.dialog.open(DialogEdittaskFormComponent, {
       width: '400px',
       data: item
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      //Filter tasks without names to remove them
       this.todo = this.todo.filter(item => item.name)
       this.inProgress = this.inProgress.filter(item => item.name)
       this.done = this.done.filter(item => item.name)
+
+      this.saveDataToLocalStorage();
     });
+  }
+
+  saveDataToLocalStorage(): void {
+    this.storage.setItem('todo', JSON.stringify(this.todo))
+    this.storage.setItem('inProgress', JSON.stringify(this.inProgress))
+    this.storage.setItem('done', JSON.stringify(this.done))
   }
 
   drop(event: CdkDragDrop<Task[]>) {
@@ -60,11 +64,21 @@ export class BoardComponent implements OnInit {
                         event.container.data,
                         event.previousIndex,
                         event.currentIndex);
-    }
-    console.log('Todo: ' + this.todo + " In progress: " + this.inProgress + " Done: " + this.done)
+      }
+      this.saveDataToLocalStorage();
   }
 
   ngOnInit(): void {
+    //At start get all tasks from LocalStorage
+    if (this.storage.getItem('todo')) {
+      this.todo = JSON.parse(<string>this.storage.getItem('todo')) as Task[];
+    }
+    if (this.storage.getItem('inProgress')) {
+      this.inProgress = JSON.parse(<string>this.storage.getItem('inProgress')) as Task[];
+    }
+    if (this.storage.getItem('done')) {
+      this.done = JSON.parse(<string>this.storage.getItem('done')) as Task[];
+    }
   }
 
 }

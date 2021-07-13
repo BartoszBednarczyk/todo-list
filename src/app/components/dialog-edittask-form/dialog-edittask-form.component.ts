@@ -26,25 +26,24 @@ export class DialogEdittaskFormComponent implements OnInit {
       
   }
 
-  getErrorMessage(): string {
-      return 'You must enter a value';
-  }
-
-  addTask(): void {
+  editTask(): void {
     if (this.name.valid) {
       this.data.name = this.name.value;
       this.data.description = this.description;
       this.data.isDescriptionVisible = this.isDescriptionVisible;
       this.data.color = this.color;
-      //this.data.push(temp)
-      this.openSnackBar('Edited task', 'Close', 1000)
+      this.openSnackBar('Edited task', 'Close', 3000)
       this.dialogRef.close();
     } else {
       this.openSnackBar("You have to choose task name.", "Close", 3000);
       document.getElementById('name')?.focus()
     }
-    
-    
+  }
+
+  deleteTask(): void {
+    this.data.name = "";
+    this.openSnackBar("Deleted task", "Close", 3000);
+    this.dialogRef.close();
   }
 
   clearForm(): void {
@@ -54,13 +53,12 @@ export class DialogEdittaskFormComponent implements OnInit {
     this.color = "#ecf0f1"
   }
 
-  openSnackBar(message: string, action: string, duration: number) {
-    this._snackBar.open(message, action, {duration});
+  getErrorMessage(): string {
+    return 'You must enter a value';
   }
 
-  delete(): void {
-    this.data.name = "";
-    this.dialogRef.close();
+  openSnackBar(message: string, action: string, duration: number) {
+    this._snackBar.open(message, action, {duration});
   }
 
   onNoClick(): void {

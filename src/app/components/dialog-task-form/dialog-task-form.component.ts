@@ -11,7 +11,7 @@ import { Task } from '../board/task';
   styleUrls: ['./dialog-task-form.component.sass']
 })
 export class DialogTaskFormComponent implements OnInit {
-
+  storage: Storage = window.localStorage;
   name: FormControl = new FormControl('', [Validators.required])
   description: string = "";
   isDescriptionVisible: boolean = true;
@@ -34,7 +34,8 @@ export class DialogTaskFormComponent implements OnInit {
     if (this.name.valid) {
       let temp = new Task(this.name.value, this.description, this.isDescriptionVisible, this.color)
       this.data.push(temp)
-      this.openSnackBar('Added new task', 'Close', 1000)
+      this.storage.setItem('todo', JSON.stringify(this.data))
+      this.openSnackBar('Added new task', 'Close', 3000)
       this.clearForm()
       document.getElementById('name')?.focus();
     } else {
