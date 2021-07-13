@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,7 +10,7 @@ import { Task } from '../board/task';
   templateUrl: './dialog-edittask-form.component.html',
   styleUrls: ['./dialog-edittask-form.component.sass']
 })
-export class DialogEdittaskFormComponent implements OnInit {
+export class DialogEdittaskFormComponent {
 
   name: FormControl = new FormControl(this.data.name, [Validators.required])
   description: string = this.data.description;
@@ -35,7 +35,7 @@ export class DialogEdittaskFormComponent implements OnInit {
       this.openSnackBar('Edited task', 'Close', 3000)
       this.dialogRef.close();
     } else {
-      this.openSnackBar("You have to choose task name.", "Close", 3000);
+      this.openSnackBar("You have to choose task name", "Close", 3000);
       document.getElementById('name')?.focus()
     }
   }
@@ -63,9 +63,6 @@ export class DialogEdittaskFormComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close();
-  }
-
-  ngOnInit(): void {
   }
 
 }

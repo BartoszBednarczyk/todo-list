@@ -3,11 +3,11 @@ html, body
    position: relative
 
   
-.container
+.main-container
   height: 80%
   width: auto
 
-.example-container 
+.container 
   width: 400px
   max-width: 100%
   margin: 0 25px 25px 0
@@ -17,7 +17,7 @@ html, body
   height: 70vh
   scrollbar-width: thin
 
-.example-list 
+.list 
   border: solid 1px #ccc
   background: white
   border-radius: 4px
@@ -30,7 +30,7 @@ html, body
   margin: 5px
 
 
-.example-box 
+.box 
   padding: 20px 10px
   border-bottom: solid 5px white
   color: rgba(0, 0, 0, 0.87)
@@ -42,6 +42,7 @@ html, body
   cursor: move
   background: white
   font-size: 14px
+  position: relative
   
 
 
@@ -58,12 +59,7 @@ html, body
 .cdk-drag-animating 
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1)
 
-
-.example-box:last-child 
-  //border: none
-
-
-.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) 
+.list.cdk-drop-list-dragging .box:not(.cdk-drag-placeholder) 
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1)
 
 .card
@@ -85,10 +81,10 @@ html, body
 .btn-shadow:hover
   box-shadow: 0px 0px 20px #F44336
 
-.bar
-  height: 2px
-  width: 100%
-  background-color: red
+.edit-button 
+  position: absolute
+  top: 0
+  right: 0
 
 ::-webkit-scrollbar 
   width: 5px
@@ -111,3 +107,4 @@ html, body
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover 
   background: #FF4081
+

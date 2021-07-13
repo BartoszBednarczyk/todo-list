@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,7 +10,7 @@ import { Task } from '../board/task';
   templateUrl: './dialog-task-form.component.html',
   styleUrls: ['./dialog-task-form.component.sass']
 })
-export class DialogTaskFormComponent implements OnInit {
+export class DialogTaskFormComponent {
   storage: Storage = window.localStorage;
   name: FormControl = new FormControl('', [Validators.required])
   description: string = "";
@@ -59,9 +59,6 @@ export class DialogTaskFormComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close();
-  }
-
-  ngOnInit(): void {
   }
 
 }

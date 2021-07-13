@@ -1,28 +1,26 @@
-<mat-card class="container">
-    <div class="example-container">
+<mat-card class="main-container">
+    <div class="container">
         <h2>To do</h2>
-      
         <div
           cdkDropList
           #todoList="cdkDropList"
           [cdkDropListData]="todo"
           [cdkDropListConnectedTo]="[doneList, inProgressList, thrashList]"
-          class="example-list"
+          class="list"
           (cdkDropListDropped)="drop($event)">
-          <div class="example-box" [ngStyle]="{'border-bottom': 'solid 5px' + item.color}" *ngFor="let item of todo" cdkDrag>
+          <div class="box" [ngStyle]="{'border-bottom': 'solid 5px' + item.color}" *ngFor="let item of todo" cdkDrag>
               <div>
                 <h2>{{item.name}}</h2>
                 <p *ngIf="item.isDescriptionVisible">{{item.description}}</p>
               </div>
-              <button mat-icon-button color="black" aria-label="Example icon button with a home icon" (click)="openEditTaskDialog(item)">
-                <mat-icon>mode</mat-icon>
+              <button class="edit-button" mat-icon-button color="black" aria-label="Example icon button with a home icon" (click)="openEditTaskDialog(item)">
+                <mat-icon>more_horiz</mat-icon>
               </button>
           </div>
-          <!-- <mat-card class="card" *ngFor="let item of todo" cdkDrag>{{item.name}}</mat-card> -->
         </div>
       </div>
     
-      <div class="example-container">
+      <div class="container">
         <h2>In progress</h2>
       
         <div
@@ -30,22 +28,22 @@
           #inProgressList="cdkDropList"
           [cdkDropListData]="inProgress"
           [cdkDropListConnectedTo]="[todoList, doneList, thrashList]"
-          class="example-list"
+          class="list"
           (cdkDropListDropped)="drop($event)">
-          <div class="example-box" [ngStyle]="{'border-bottom': 'solid 5px' + item.color}" *ngFor="let item of inProgress" cdkDrag>
+          <div class="box" [ngStyle]="{'border-bottom': 'solid 5px' + item.color}" *ngFor="let item of inProgress" cdkDrag>
             <div>
                 <h2>{{item.name}}</h2>
                 <p *ngIf="item.isDescriptionVisible">{{item.description}}</p>
               </div>
-              <button mat-icon-button color="black" aria-label="Example icon button with a home icon" (click)="openEditTaskDialog(item)">
-                <mat-icon>mode</mat-icon>
+              <button class="edit-button" mat-icon-button color="black" aria-label="Example icon button with a home icon" (click)="openEditTaskDialog(item)">
+                <mat-icon>more_horiz</mat-icon>
               </button>
           </div>
           <!-- <mat-card class="card" *ngFor="let item of inProgress" cdkDrag>{{item.name}}</mat-card> -->
         </div>
       </div>
       
-      <div class="example-container">
+      <div class="container">
         <h2>Done</h2>
       
         <div
@@ -53,15 +51,15 @@
           #doneList="cdkDropList"
           [cdkDropListData]="done"
           [cdkDropListConnectedTo]="[todoList, inProgressList, thrashList]"
-          class="example-list"
+          class="list"
           (cdkDropListDropped)="drop($event)">
-          <div class="example-box" [ngStyle]="{'border-bottom': 'solid 5px' + item.color}" *ngFor="let item of done" cdkDrag>
+          <div class="box" [ngStyle]="{'border-bottom': 'solid 5px' + item.color}" *ngFor="let item of done" cdkDrag>
             <div>
                 <h2>{{item.name}}</h2>
                 <p *ngIf="item.isDescriptionVisible">{{item.description}}</p>
               </div>
-              <button mat-icon-button color="black" aria-label="Example icon button with a home icon" (click)="openEditTaskDialog(item)">
-                <mat-icon>mode</mat-icon>
+              <button class="edit-button" mat-icon-button color="black" aria-label="Example icon button with a home icon" (click)="openEditTaskDialog(item)">
+                <mat-icon>more_horiz</mat-icon>
               </button>
           </div>
           

@@ -23,7 +23,8 @@ export class BoardComponent implements OnInit {
 
   currentIcon: string = "add"
 
-  constructor(public dialog: MatDialog,
+  constructor(
+    public dialog: MatDialog,
     private _snackBar: MatSnackBar) { 
   }
 
