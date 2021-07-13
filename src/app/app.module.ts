@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,7 +16,7 @@ import {MatSelectModule} from '@angular/material/select'
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-
+import { DialogEdittaskFormComponent } from './components/dialog-edittask-form/dialog-edittask-form.component';
 
 
 @NgModule({
@@ -24,6 +24,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     AppComponent,
     BoardComponent,
     DialogTaskFormComponent,
+    DialogEdittaskFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +39,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatInputModule,
     MatCheckboxModule,
     FormsModule,
+    ReactiveFormsModule,
     MatSnackBarModule
   ],
   providers: [],

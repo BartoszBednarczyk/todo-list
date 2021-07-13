@@ -14,7 +14,7 @@
                 <h2>{{item.name}}</h2>
                 <p *ngIf="item.isDescriptionVisible">{{item.description}}</p>
               </div>
-              <button mat-icon-button color="black" aria-label="Example icon button with a home icon"z>
+              <button mat-icon-button color="black" aria-label="Example icon button with a home icon" (click)="openEditDialog(item)">
                 <mat-icon>mode</mat-icon>
               </button>
           </div>
@@ -37,7 +37,7 @@
                 <h2>{{item.name}}</h2>
                 <p *ngIf="item.isDescriptionVisible">{{item.description}}</p>
               </div>
-              <button mat-icon-button color="black" aria-label="Example icon button with a home icon">
+              <button mat-icon-button color="black" aria-label="Example icon button with a home icon" (click)="openEditDialog(item)">
                 <mat-icon>mode</mat-icon>
               </button>
           </div>
@@ -60,7 +60,7 @@
                 <h2>{{item.name}}</h2>
                 <p *ngIf="item.isDescriptionVisible">{{item.description}}</p>
               </div>
-              <button mat-icon-button color="black" aria-label="Example icon button with a home icon">
+              <button mat-icon-button color="black" aria-label="Example icon button with a home icon" (click)="openEditDialog(item)">
                 <mat-icon>mode</mat-icon>
               </button>
           </div>

@@ -6,21 +6,21 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Task } from '../board/task';
 
 @Component({
-  selector: 'app-dialog-task-form',
-  templateUrl: './dialog-task-form.component.html',
-  styleUrls: ['./dialog-task-form.component.sass']
+  selector: 'app-dialog-edittask-form',
+  templateUrl: './dialog-edittask-form.component.html',
+  styleUrls: ['./dialog-edittask-form.component.sass']
 })
-export class DialogTaskFormComponent implements OnInit {
+export class DialogEdittaskFormComponent implements OnInit {
 
-  name: FormControl = new FormControl('', [Validators.required])
-  description: string = "";
-  isDescriptionVisible: boolean = true;
-  color: string = "#ecf0f1";
+  name: FormControl = new FormControl(this.data.name, [Validators.required])
+  description: string = this.data.description;
+  isDescriptionVisible: boolean = this.data.isDescriptionVisible;
+  color: string = this.data.color;
   nameInvalid: boolean = false;
 
   constructor(
-    public dialogRef: MatDialogRef<DialogTaskFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Task[],
+    public dialogRef: MatDialogRef<DialogEdittaskFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Task,
     private _snackBar: MatSnackBar) { 
       console.log(this.data)
       
@@ -32,11 +32,13 @@ export class DialogTaskFormComponent implements OnInit {
 
   addTask(): void {
     if (this.name.valid) {
-      let temp = new Task(this.name.value, this.description, this.isDescriptionVisible, this.color)
-      this.data.push(temp)
-      this.openSnackBar('Added new task', 'Close', 1000)
-      this.clearForm()
-      document.getElementById('name')?.focus();
+      this.data.name = this.name.value;
+      this.data.description = this.description;
+      this.data.isDescriptionVisible = this.isDescriptionVisible;
+      this.data.color = this.color;
+      //this.data.push(temp)
+      this.openSnackBar('Edited task', 'Close', 1000)
+      this.dialogRef.close();
     } else {
       this.openSnackBar("You have to choose task name.", "Close", 3000);
       document.getElementById('name')?.focus()
@@ -54,6 +56,11 @@ export class DialogTaskFormComponent implements OnInit {
 
   openSnackBar(message: string, action: string, duration: number) {
     this._snackBar.open(message, action, {duration});
+  }
+
+  delete(): void {
+    this.data.name = "";
+    this.dialogRef.close();
   }
 
   onNoClick(): void {
