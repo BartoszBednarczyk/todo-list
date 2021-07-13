@@ -3,35 +3,33 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { MatDialog } from '@angular/material/dialog'
 import { Task } from './task'
 import { DialogTaskFormComponent } from '../dialog-task-form/dialog-task-form.component';
+
+
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.sass']
 })
 export class BoardComponent implements OnInit {
-  todo: Task[] = [
-    {name: "Test1", description: "Test", isDescriptionVisible: true}
-  ]
+  todo: Task[] = []
 
-  inProgress: Task[] = [
-    {name: "Test1", description: "Test", isDescriptionVisible: true}
-  ]
+  inProgress: Task[] = []
 
-  done: Task[] = [
-    {name: "Test1", description: "Test", isDescriptionVisible: true},
-  ]
+  done: Task[] = []
   constructor(public dialog: MatDialog) { 
-    let temp = new Task("Test", "Test", false)
-    this.todo.push(temp)
-    temp = new Task("Nowe", "Nowe", false)
-    this.todo.push(temp)
-    console.log(temp)
+    this.todo.push(new Task("Make some more coffee","It could be useful to not fall asleep while doing next tasks.", true))
+    this.inProgress.push(new Task("Create ToDoApp","Three sideboards, drag&drop, adding new tasks, editing existing tasks.", true))
+    this.inProgress.push(new Task("Create ToDoApp","Three sideboards, drag&drop, adding new tasks, editing existing tasks.", true))
+    this.inProgress.push(new Task("Create ToDoApp","Three sideboards, drag&drop, adding new tasks, editing existing tasks.", true))
+    this.done.push(new Task("Make a coffee","Just the thing you do first thing firsts.", true))
+
   }
 
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogTaskFormComponent, {
-      width: '400px'
+      width: '400px',
+      data: this.todo
     });
 
     dialogRef.afterClosed().subscribe(result => {
