@@ -6,7 +6,7 @@
           cdkDropList
           #todoList="cdkDropList"
           [cdkDropListData]="todo"
-          [cdkDropListConnectedTo]="[doneList, inProgressList]"
+          [cdkDropListConnectedTo]="[doneList, inProgressList, thrashList]"
           class="example-list"
           (cdkDropListDropped)="drop($event)">
           <div class="example-box" [ngStyle]="{'border-bottom': 'solid 5px' + item.color}" *ngFor="let item of todo" cdkDrag>
@@ -29,7 +29,7 @@
           cdkDropList
           #inProgressList="cdkDropList"
           [cdkDropListData]="inProgress"
-          [cdkDropListConnectedTo]="[todoList, doneList]"
+          [cdkDropListConnectedTo]="[todoList, doneList, thrashList]"
           class="example-list"
           (cdkDropListDropped)="drop($event)">
           <div class="example-box" [ngStyle]="{'border-bottom': 'solid 5px' + item.color}" *ngFor="let item of inProgress" cdkDrag>
@@ -52,7 +52,7 @@
           cdkDropList
           #doneList="cdkDropList"
           [cdkDropListData]="done"
-          [cdkDropListConnectedTo]="[todoList, inProgressList]"
+          [cdkDropListConnectedTo]="[todoList, inProgressList, thrashList]"
           class="example-list"
           (cdkDropListDropped)="drop($event)">
           <div class="example-box" [ngStyle]="{'border-bottom': 'solid 5px' + item.color}" *ngFor="let item of done" cdkDrag>
@@ -69,9 +69,20 @@
         </div>
       </div>
       
-      <div class="example-button-container">
+      <div class="add-button-container">
         <button mat-fab color="accent" aria-label="Example icon button with a plus one icon" (click)="openAddingTaskDialog()">
           <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+      <div class="delete-button-container">
+        <button mat-fab color="accent" aria-label="Example icon button with a plus one icon" class="btn-shadow"
+        cdkDropList
+          #thrashList="cdkDropList"
+          [cdkDropListData]="thrash"
+          (cdkDropListDropped)="drop($event)"
+          (click)="openSnackBar('Drag task there to delete it', 'Close', 3000)">
+          <mat-icon>delete</mat-icon>
         </button>
       </div>
 </mat-card>

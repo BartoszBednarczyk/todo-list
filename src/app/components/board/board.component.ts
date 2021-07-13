@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { Task } from './task'
 import { DialogTaskFormComponent } from '../dialog-task-form/dialog-task-form.component';
 import { DialogEdittaskFormComponent } from '../dialog-edittask-form/dialog-edittask-form.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -18,8 +19,12 @@ export class BoardComponent implements OnInit {
   todo: Task[] = []
   inProgress: Task[] = []
   done: Task[] = []
+  thrash: Task[] = []
 
-  constructor(public dialog: MatDialog) { 
+  currentIcon: string = "add"
+
+  constructor(public dialog: MatDialog,
+    private _snackBar: MatSnackBar) { 
   }
 
 
@@ -57,6 +62,7 @@ export class BoardComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<Task[]>) {
+    console.log("test")
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -66,6 +72,10 @@ export class BoardComponent implements OnInit {
                         event.currentIndex);
       }
       this.saveDataToLocalStorage();
+  }
+
+  openSnackBar(message: string, action: string, duration: number) {
+    this._snackBar.open(message, action, {duration});
   }
 
   ngOnInit(): void {
