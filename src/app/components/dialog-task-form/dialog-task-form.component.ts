@@ -14,6 +14,7 @@ export class DialogTaskFormComponent implements OnInit {
   name: string = "";
   description: string = "";
   isDescriptionVisible: boolean = true;
+  color: string = "#ecf0f1";
 
   constructor(
     public dialogRef: MatDialogRef<DialogTaskFormComponent>,
@@ -24,7 +25,7 @@ export class DialogTaskFormComponent implements OnInit {
   }
 
   addTask(): void {
-    let temp = new Task(this.name, this.description, this.isDescriptionVisible)
+    let temp = new Task(this.name, this.description, this.isDescriptionVisible, this.color)
     this.data.push(temp)
     this.openSnackBar('Added new task', 'Close')
     this.clearForm()
@@ -32,8 +33,10 @@ export class DialogTaskFormComponent implements OnInit {
   }
 
   clearForm(): void {
-    this.name, this.description = ""
-    this.isDescriptionVisible = true
+    this.name = "";
+    this.description = "";
+    this.isDescriptionVisible = true;
+    this.color = "#ecf0f1"
   }
 
   openSnackBar(message: string, action: string) {

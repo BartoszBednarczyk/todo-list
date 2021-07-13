@@ -17,11 +17,11 @@ export class BoardComponent implements OnInit {
 
   done: Task[] = []
   constructor(public dialog: MatDialog) { 
-    this.todo.push(new Task("Make some more coffee","It could be useful to not fall asleep while doing next tasks.", true))
-    this.inProgress.push(new Task("Create ToDoApp","Three sideboards, drag&drop, adding new tasks, editing existing tasks.", true))
-    this.inProgress.push(new Task("Create ToDoApp","Three sideboards, drag&drop, adding new tasks, editing existing tasks.", true))
-    this.inProgress.push(new Task("Create ToDoApp","Three sideboards, drag&drop, adding new tasks, editing existing tasks.", true))
-    this.done.push(new Task("Make a coffee","Just the thing you do first thing firsts.", true))
+    this.todo.push(new Task("Make some more coffee","It could be useful to not fall asleep while doing next tasks.", true, "#123456"))
+    this.inProgress.push(new Task("Create ToDoApp","Three sideboards, drag&drop, adding new tasks, editing existing tasks.", true, "#ff4081"))
+    this.inProgress.push(new Task("Create ToDoApp","Three sideboards, drag&drop, adding new tasks, editing existing tasks.", true, "#2ecc71"))
+    this.inProgress.push(new Task("Create ToDoApp","Three sideboards, drag&drop, adding new tasks, editing existing tasks.", true, "#3498db"))
+    this.done.push(new Task("Make a coffee","Just the thing you do first thing firsts.", true, "#f1c40f"))
 
   }
 
