@@ -4,30 +4,36 @@ html, body
 
   
 .main-container
-  height: 80%
-  width: auto
+  height: 70vh
+  width: 80vw
+  display: flex
+  justify-content: center
+  align-items: center
+  flex-flow: wrap
+  margin: 0
+  overflow-x: hidden
+  max-width: 1200px
 
 .container 
-  width: 400px
+  width: 30%
   max-width: 100%
   margin: 0 25px 25px 0
   display: inline-block
   vertical-align: top
   overflow-y: hidden
-  height: 70vh
+  height: 90%
   scrollbar-width: thin
+  min-width: 300px
 
 .list 
   border: solid 1px #ccc
+  border-left: solid 1px #ccc
+  border-right: solid 1px #ccc
   background: white
   border-radius: 4px
   display: block
   overflow-y: auto
-  height: auto
-  min-height: 60vh
-  max-height: 60vh
-  height: auto
-  margin: 5px
+  height: 90%
 
 
 .box 
@@ -108,3 +114,7 @@ html, body
 ::-webkit-scrollbar-thumb:hover 
   background: #FF4081
 
+
+@media (max-width: 480px)
+  .container
+    margin: 0
