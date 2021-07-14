@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,6 +12,7 @@ export class AppComponent implements OnInit {
   options: FormGroup;
   storage: Storage = window.localStorage;
   boards: any = [];
+  thrash: any = [];
   
   constructor(fb: FormBuilder,
     public dialog: MatDialog,) {
@@ -32,6 +34,23 @@ export class AppComponent implements OnInit {
     });
   }
 
+  drop(event: CdkDragDrop<any>) {
+    console.log("test")
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+                        event.container.data,
+                        event.previousIndex,
+                        event.currentIndex);
+      if(window.location.href.endsWith(event.container.data[0].id)){
+        window.open('/', "_self")
+      }
+      this.thrash = []
+      }
+      this.saveBoards()
+  }
+
   ngOnInit() {
     this.loadBoards()
   }
@@ -41,5 +60,9 @@ export class AppComponent implements OnInit {
       this.boards = JSON.parse(<string>this.storage.getItem('boards'))
     }
     console.log(this.boards)
+  }
+
+  saveBoards(): void {
+    this.storage.setItem('boards', JSON.stringify(this.boards))
   }
 }

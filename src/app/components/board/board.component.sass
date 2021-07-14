@@ -53,6 +53,7 @@ html, body
 
 
 .cdk-drag-preview 
+  position: relative
   box-sizing: border-box
   border-radius: 4px
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12)
@@ -84,10 +85,6 @@ html, body
   bottom: 30px
   left: 30px
   z-index: 10000 !important
-
-.delete-button-container:hover ~ .cdk-drag-preview
-  backround-color: red
-
 
 .btn-shadow:hover
   box-shadow: 0px 0px 20px #F44336

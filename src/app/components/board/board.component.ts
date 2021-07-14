@@ -87,7 +87,6 @@ export class BoardComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<Task[]>) {
-    console.log("test")
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -107,6 +106,7 @@ export class BoardComponent implements OnInit {
     this.id = this.route.snapshot.params.id
     let temp = this.storage.getItem('boards')
     this.boards = JSON.parse(<string>temp);
+    this.checkIfBoardExist()
     this.board = this.boards!.filter((board: any) => board.id === this.id)
     console.log(this.board)
     this.boardContent = this.board[0].boardContent
@@ -116,7 +116,17 @@ export class BoardComponent implements OnInit {
 
   }
 
+  checkIfBoardExist(): void {
+    if(!this.boards!.filter((board: any) => board.id == this.id).length) {
+      window.open('/',"_self")
+    } else {
+      console.log('exist')
+      console.log(this.boards!.filter((board: any) => board.id === this.id))
+    }
+  }
+
   ngOnInit(): void {
+
     this.openCurrentBoard()
     
     //At start get all tasks from LocalStorage

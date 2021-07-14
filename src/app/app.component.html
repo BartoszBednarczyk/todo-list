@@ -7,12 +7,30 @@
                      <div class="header">
                          <h1>Boards</h1>
                      </div>
-                     <div class="board-list">
-                        <button *ngFor="let board of boards" class="full-width" mat-stroked-button [routerLink]="['/board', board.id]">{{ board.boardName }}</button>
+                     <div class="board-list"
+                     cdkDropList
+                     #boardList="cdkDropList"
+                     [cdkDropListData]="boards"
+                     [cdkDropListConnectedTo]="[thrashList]"
+                     (cdkDropListDropped)="drop($event)"
+                     >
+                        <button *ngFor="let board of boards" class="full-width draggable-button" mat-stroked-button [routerLink]="['/board', board.id]" cdkDrag>{{ board.boardName }}</button>
                      </div>
+                     
                      <div class="new-board-button">
                         <button mat-stroked-button color="accent" class="full-width-height" (click)="openCreatingBoardDialog()">
                             <mat-icon class="icon">add</mat-icon>
+                        </button>
+                     </div>
+
+                     <div class="thrash-button"
+                     cdkDropList
+                     #thrashList="cdkDropList"
+                     [cdkDropListData]="thrash"
+                     [cdkDropListConnectedTo]="[]"
+                     (cdkDropListDropped)="drop($event)">
+                        <button mat-stroked-button color="warn" class="full-width-height">
+                            <mat-icon class="icon">delete</mat-icon>
                         </button>
                      </div>
                  </div>
