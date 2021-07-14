@@ -5,6 +5,7 @@ import { Task } from './task'
 import { DialogTaskFormComponent } from '../dialog-task-form/dialog-task-form.component';
 import { DialogEdittaskFormComponent } from '../dialog-edittask-form/dialog-edittask-form.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 
 
@@ -20,19 +21,33 @@ export class BoardComponent implements OnInit {
   inProgress: Task[] = []
   done: Task[] = []
   thrash: Task[] = []
+  id: string = ''
+  boards: any = []
+  board: any = []
+  boardContent: any = []
 
   currentIcon: string = "add"
 
   constructor(
     public dialog: MatDialog,
-    private _snackBar: MatSnackBar) { 
+    private _snackBar: MatSnackBar,
+    private route: ActivatedRoute,
+    router: Router) { 
+      router.events.subscribe((val) => {
+        if(val instanceof NavigationEnd) {
+          this.openCurrentBoard()
+        }
+      })
   }
 
 
   openAddingTaskDialog(): void {
     const dialogRef = this.dialog.open(DialogTaskFormComponent, {
       width: '400px',
-      data: this.todo
+      data: {
+        data: this.todo,
+        func: () => this.saveDataToLocalStorage()
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -56,10 +71,19 @@ export class BoardComponent implements OnInit {
     });
   }
 
+  saveDataToLocalStorageCallback = (args: any): void => {
+    this.saveDataToLocalStorage()
+  }
+
   saveDataToLocalStorage(): void {
-    this.storage.setItem('todo', JSON.stringify(this.todo))
-    this.storage.setItem('inProgress', JSON.stringify(this.inProgress))
-    this.storage.setItem('done', JSON.stringify(this.done))
+    let index = this.boards.findIndex((board: any) => board.id === this.id)
+    this.boards[index].boardContent.todo = this.todo
+    this.boards[index].boardContent.inProgress = this.inProgress
+    this.boards[index].boardContent.done = this.done
+    this.storage.setItem('boards', JSON.stringify(this.boards))
+    //this.storage.setItem('todo', JSON.stringify(this.todo))
+    //this.storage.setItem('inProgress', JSON.stringify(this.inProgress))
+    //this.storage.setItem('done', JSON.stringify(this.done))
   }
 
   drop(event: CdkDragDrop<Task[]>) {
@@ -79,17 +103,32 @@ export class BoardComponent implements OnInit {
     this._snackBar.open(message, action, {duration});
   }
 
+  openCurrentBoard(): void {
+    this.id = this.route.snapshot.params.id
+    let temp = this.storage.getItem('boards')
+    this.boards = JSON.parse(<string>temp);
+    this.board = this.boards!.filter((board: any) => board.id === this.id)
+    console.log(this.board)
+    this.boardContent = this.board[0].boardContent
+    this.todo = this.boardContent.todo
+    this.done = this.boardContent.done
+    this.inProgress = this.boardContent.inProgress
+
+  }
+
   ngOnInit(): void {
+    this.openCurrentBoard()
+    
     //At start get all tasks from LocalStorage
-    if (this.storage.getItem('todo')) {
-      this.todo = JSON.parse(<string>this.storage.getItem('todo')) as Task[];
-    }
-    if (this.storage.getItem('inProgress')) {
-      this.inProgress = JSON.parse(<string>this.storage.getItem('inProgress')) as Task[];
-    }
-    if (this.storage.getItem('done')) {
-      this.done = JSON.parse(<string>this.storage.getItem('done')) as Task[];
-    }
+    // if (this.storage.getItem('todo')) {
+    //   this.todo = JSON.parse(<string>this.storage.getItem('todo')) as Task[];
+    // }
+    // if (this.storage.getItem('inProgress')) {
+    //   this.inProgress = JSON.parse(<string>this.storage.getItem('inProgress')) as Task[];
+    // }
+    // if (this.storage.getItem('done')) {
+    //   this.done = JSON.parse(<string>this.storage.getItem('done')) as Task[];
+    // }
   }
 
 }

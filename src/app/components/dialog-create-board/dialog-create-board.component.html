@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Create new board</h1>
+    
+      <mat-form-field color="accent" class="full-width">
+        <mat-label>Board name</mat-label>
+        <input autocomplete="off" matInput [formControl]="name" id="name" required>
+        <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    
+    <div mat-dialog-actions>
+        <button mat-raised-button color="accent" class="full-width" (click)="createBoard()">Create board</button>
+      <!-- <button mat-button (click)="onNoClick()">No Thanks</button>
+      <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button> -->
+    </div>

@@ -23,8 +23,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav'
 import {MatToolbarModule} from '@angular/material/toolbar';
-
-
+import { DialogCreateBoardComponent } from './components/dialog-create-board/dialog-create-board.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +32,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     DialogTaskFormComponent,
     DialogEdittaskFormComponent,
     HomepageComponent,
+    DialogCreateBoardComponent,
   ],
   imports: [
     BrowserModule,

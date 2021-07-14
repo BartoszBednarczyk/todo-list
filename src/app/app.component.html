@@ -2,11 +2,24 @@
     
 <mat-sidenav #sidenav mode="over" class="example-sidenav"
                  [fixedInViewport]="options.value.fixed">
-      {{options.value.fixed ? 'Fixed' : 'Non-fixed'}} Sidenav
+
+                 <div class="menu-container">
+                     <div class="header">
+                         <h1>Boards</h1>
+                     </div>
+                     <div class="board-list">
+                        <button *ngFor="let board of boards" class="full-width" mat-stroked-button [routerLink]="['/board', board.id]">{{ board.boardName }}</button>
+                     </div>
+                     <div class="new-board-button">
+                        <button mat-stroked-button color="accent" class="full-width-height" (click)="openCreatingBoardDialog()">
+                            <mat-icon class="icon">add</mat-icon>
+                        </button>
+                     </div>
+                 </div>
 </mat-sidenav>
 <mat-sidenav-content class="flex-display">
     <router-outlet></router-outlet>
-    <button mat-fab color="accent" aria-label="Example icon button with a plus one icon" class="menu-button" mat-button (click)="sidenav.toggle()">
+    <button mat-icon-button color="accent" aria-label="Example icon button with a plus one icon" class="menu-button" mat-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
 </mat-sidenav-content>
