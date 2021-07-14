@@ -1,3 +1,18 @@
-<div class="container">
-    <app-board class="test"></app-board>
-</div>
+<mat-sidenav-container [hasBackdrop]='true' class="container">
+    
+<mat-sidenav #sidenav mode="over" class="example-sidenav"
+                 [fixedInViewport]="options.value.fixed">
+      {{options.value.fixed ? 'Fixed' : 'Non-fixed'}} Sidenav
+</mat-sidenav>
+<mat-sidenav-content class="flex-display">
+    <router-outlet></router-outlet>
+    <button mat-fab color="accent" aria-label="Example icon button with a plus one icon" class="menu-button" mat-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+</mat-sidenav-content>
+    
+    
+
+</mat-sidenav-container>  
+
+    <!-- <app-board class="flex-display"></app-board> -->
