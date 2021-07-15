@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateBoardComponent } from './components/dialog-create-board/dialog-create-board.component';
+import { Board } from './components/board/board'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,8 +12,8 @@ import { DialogCreateBoardComponent } from './components/dialog-create-board/dia
 export class AppComponent implements OnInit {
   options: FormGroup;
   storage: Storage = window.localStorage;
-  boards: any = [];
-  thrash: any = [];
+  boards: Board[] = [];
+  thrash: Task[] = [];
   
   constructor(fb: FormBuilder,
     public dialog: MatDialog,) {
@@ -35,7 +36,6 @@ export class AppComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<any>) {
-    console.log("test")
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
