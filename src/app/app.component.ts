@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateBoardComponent } from './components/dialog-create-board/dialog-create-board.component';
 import { Board } from './components/board/board'
+import { AppService } from './app.service';
+
+import { addElement } from '../../server/routes/functions'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,9 +17,12 @@ export class AppComponent implements OnInit {
   storage: Storage = window.localStorage;
   boards: Board[] = [];
   thrash: Task[] = [];
+
+  test: any = [];
   
   constructor(fb: FormBuilder,
-    public dialog: MatDialog,) {
+    public dialog: MatDialog,
+    private appService: AppService) {
     this.options = fb.group({
       bottom: 0,
       fixed: false,
@@ -52,7 +58,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadBoards()
+    this.loadBoards();
+    // this.appService.getAllBoards().subscribe(posts => {
+    //   this.test = posts;
+    // });
   }
 
   loadBoards(): void {

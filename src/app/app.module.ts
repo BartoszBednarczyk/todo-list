@@ -24,6 +24,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav'
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { DialogCreateBoardComponent } from './components/dialog-create-board/dialog-create-board.component';
+import { AppService } from './app.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -51,9 +53,10 @@ import { DialogCreateBoardComponent } from './components/dialog-create-board/dia
     ReactiveFormsModule,
     MatSnackBarModule,
     MatSidenavModule,
-    MatToolbarModule
+    MatToolbarModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
