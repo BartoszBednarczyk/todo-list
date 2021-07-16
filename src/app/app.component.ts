@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateBoardComponent } from './components/dialog-create-board/dialog-create-board.component';
 import { Board } from './components/board/board'
+
+import { TodoService } from './services/todo.service'
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,8 +17,12 @@ export class AppComponent implements OnInit {
   storage: Storage = window.localStorage;
   boards: Board[] = [];
   thrash: Task[] = [];
+  todo: any;
   
   constructor(fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private todoService: TodoService,
     public dialog: MatDialog,) {
     this.options = fb.group({
       bottom: 0,
@@ -53,6 +60,19 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.loadBoards()
+    this.getTodos()
+  }
+
+  getTodos(): void {
+    this.todoService.getAll().subscribe(
+      data => {
+        this.todo = data;
+        console.log(data)
+      },
+      error => {
+        console.log(error)
+      }
+    )
   }
 
   loadBoards(): void {

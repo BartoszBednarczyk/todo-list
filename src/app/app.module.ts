@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { AppRoutingModule } from './app-routing/app-routing.module';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { DialogTaskFormComponent } from './components/dialog-task-form/dialog-task-form.component'
@@ -51,7 +52,8 @@ import { DialogCreateBoardComponent } from './components/dialog-create-board/dia
     ReactiveFormsModule,
     MatSnackBarModule,
     MatSidenavModule,
-    MatToolbarModule
+    MatToolbarModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
