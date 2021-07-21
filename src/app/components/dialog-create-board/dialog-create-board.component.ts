@@ -2,7 +2,9 @@ import { Component, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TodoService } from 'src/app/services/todo.service';
 import { v4 as uuidv4 } from 'uuid'
+import { Board } from '../board/board';
 import { Task } from '../board/task';
 
 @Component({
@@ -19,25 +21,28 @@ export class DialogCreateBoardComponent {
 
   constructor(
     public dialogRef: MatDialogRef<DialogCreateBoardComponent>,
-    private _snackBar: MatSnackBar) { 
+    private _snackBar: MatSnackBar,
+    private todoService: TodoService) { 
   }
 
   getErrorMessage(): string {
       return 'You must enter a value';
   }
 
+  addBoard(data: Board): void {
+    this.todoService.create(data).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.error(error)
+      }
+    )
+  }
+
   createBoard(): void {
     if (this.name.valid) {
-      let tempBoards: string | null = this.storage.getItem('boards')
-      let boards: Object[];
-      if (!tempBoards) {
-        this.storage.setItem('boards', JSON.stringify([]));
-        boards = []
-      }
-      boards = JSON.parse(<string>this.storage.getItem('boards'));
-      boards.push({boardName: this.name.value, id: uuidv4(), boardContent: {todo: [], inProgress: [], done: []}})
-      this.storage.setItem('boards', JSON.stringify(boards));
-      console.log(boards)
+      this.addBoard({boardName: this.name.value, boardContent: {todo: [], inProgress: [], done: []}})
       this.dialogRef.close();
     } else {
       this.openSnackBar("You have to choose board name", "Close", 3000);

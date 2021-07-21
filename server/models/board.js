@@ -8,10 +8,6 @@ const boardSchema = new mongoose.Schema({
   boardContent: {
     type: Object,
     required: true
-  },
-  id: {
-    type: String,
-    required: true
   }
 })
 

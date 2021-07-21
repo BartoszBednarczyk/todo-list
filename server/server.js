@@ -15,6 +15,7 @@ app.use(cors({
     origin: 'http://localhost:4200/'
 }))
 
+
 const boardsRouter = require('./routes/boards')
 app.use('/boards', boardsRouter)
 

@@ -15,9 +15,9 @@ export class AppComponent implements OnInit {
   options: FormGroup;
   storage: Storage = window.localStorage;
   boards: Board[] = [];
-  thrash: Task[] = [];
-  todo: any;
-  
+  thrash: Board[] = [];
+  isDataLoaded: boolean = false;
+
   constructor(fb: FormBuilder,
     private todoService: TodoService,
     public dialog: MatDialog,) {
@@ -28,43 +28,14 @@ export class AppComponent implements OnInit {
     });
   }
 
-  openCreatingBoardDialog(): void {
-    const dialogRef = this.dialog.open(DialogCreateBoardComponent, {
-      width: '400px',
-      data: ""
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.loadBoards()
-    });
-  }
-
-  drop(event: CdkDragDrop<any>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
-      if(window.location.href.endsWith(event.container.data[0].id)){
-        window.open('/', "_self")
-      }
-      this.thrash = []
-      }
-      this.saveBoards()
-  }
-
   ngOnInit() {
-    this.loadBoards()
-    //this.getTodos()
-    this.createTodo()
+    this.getBoards()
   }
 
-  getTodos(): void {
-    this.todoService.getAll().subscribe(
+  // API requestes
+  deleteBoard(id: string): void {
+    this.todoService.delete(id).subscribe(
       data => {
-        this.todo = data;
         console.log('Data: ' + data)
       },
       error => {
@@ -73,22 +44,50 @@ export class AppComponent implements OnInit {
     )
   }
 
-  createTodo(): void {
-    this.todoService.create('').subscribe(
-      response => {
-        console.log(response);
+  getBoards(): void {
+    this.todoService.getAll().subscribe(
+      data => {
+        this.boards = data;
+        this.changeDataLoadedStatus();
+        console.log("Changed!")
+      },
+      error => {
+        console.log(error)
       }
     )
   }
 
-  loadBoards(): void {
-    if (this.storage.getItem('boards')){
-      this.boards = JSON.parse(<string>this.storage.getItem('boards'))
-    }
-    console.log(this.boards)
+  changeDataLoadedStatus(): void {
+    this.isDataLoaded = true;
+    console.log("DATA: " + this.isDataLoaded)
   }
 
-  saveBoards(): void {
-    this.storage.setItem('boards', JSON.stringify(this.boards))
+  openCreatingBoardDialog(): void {
+    const dialogRef = this.dialog.open(DialogCreateBoardComponent, {
+      width: '400px',
+      data: ""
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getBoards()
+    });
+  }
+
+  drop(event: CdkDragDrop<any>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+      console.log(event.container.data)
+      if (window.location.href.endsWith(event.container.data[0]._id)) {
+        window.open('/', "_self")
+      }
+      this.thrash && this.deleteBoard(event.container.data[0]._id)
+      this.thrash = []
+    }
+
   }
 }

@@ -22,7 +22,8 @@ import { MatSelectModule } from '@angular/material/select'
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatSidenavModule } from '@angular/material/sidenav'
+import { MatSidenavModule } from '@angular/material/sidenav';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { DialogCreateBoardComponent } from './components/dialog-create-board/dialog-create-board.component';
 
@@ -53,7 +54,8 @@ import { DialogCreateBoardComponent } from './components/dialog-create-board/dia
     MatSnackBarModule,
     MatSidenavModule,
     MatToolbarModule,
-    HttpClientModule
+    HttpClientModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -9,6 +9,7 @@ import { DialogEdittaskFormComponent } from '../dialog-edittask-form/dialog-edit
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { TodoService } from 'src/app/services/todo.service';
 
 
 
@@ -30,16 +31,61 @@ export class BoardComponent implements OnInit {
   boardContent?: BoardContent;
 
   constructor(
+    private todoService: TodoService,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private route: ActivatedRoute,
     router: Router,
-    private titleService: Title) { 
-      router.events.subscribe((val) => {
-        if(val instanceof NavigationEnd) {
-          this.openCurrentBoard()
+    private titleService: Title) {
+    router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        this.openCurrentBoard()
+      }
+    })
+  }
+
+  ngOnInit(): void {
+    this.openCurrentBoard()
+  }
+
+  // API Requests
+  updateBoard(data: Board): void {
+    this.todoService.update(this.id, data).subscribe(
+      data => {
+        this.boards = data;
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }
+
+  getBoard(): void {
+    this.todoService.get(this.route.snapshot.params.id).subscribe(
+      data => {
+        if (data) {
+          this.board = <Board>data
+          this.todo = this.board.boardContent.todo
+          this.inProgress = this.board.boardContent.inProgress
+          this.done = this.board.boardContent.done
+          this.setTitle(this.board.boardName)
+        } else {
+
         }
-      })
+      },
+      error => {
+        console.log(error)
+        window.open('/', '_self')
+      }
+    )
+  }
+
+  updateBoards(): void {
+    this.board!.boardContent.todo = this.todo
+    this.board!.boardContent.inProgress = this.inProgress
+    this.board!.boardContent.done = this.done
+    console.log(this.board)
+    this.updateBoard(this.board!)
   }
 
   public setTitle(newTitle: string) {
@@ -52,7 +98,7 @@ export class BoardComponent implements OnInit {
       width: '400px',
       data: {
         data: this.todo,
-        func: () => this.saveDataToLocalStorage()
+        func: () => this.updateBoards()
       }
     });
 
@@ -72,18 +118,8 @@ export class BoardComponent implements OnInit {
       this.inProgress = this.inProgress.filter(item => item.name)
       this.done = this.done.filter(item => item.name)
 
-      this.saveDataToLocalStorage();
+      this.updateBoards();
     });
-  }
-
-  saveDataToLocalStorage(): void {
-    let index = this.boards.findIndex((board: any) => board.id === this.id)
-    this.boards[index].boardContent = {
-      todo: this.todo,
-      inProgress: this.inProgress,
-      done: this.done
-    }
-    this.storage.setItem('boards', JSON.stringify(this.boards))
   }
 
   drop(event: CdkDragDrop<Task[]>) {
@@ -91,47 +127,20 @@ export class BoardComponent implements OnInit {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
       transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
-      }
-      this.saveDataToLocalStorage();
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    }
+    this.updateBoards();
   }
 
   openSnackBar(message: string, action: string, duration: number) {
-    this._snackBar.open(message, action, {duration});
+    this._snackBar.open(message, action, { duration });
   }
 
   openCurrentBoard(): void {
     this.id = this.route.snapshot.params.id
-    let temp = this.storage.getItem('boards')
-    this.boards = JSON.parse(<string>temp);
-    if (this.checkIfBoardExist()){
-      this.board = this.boards!.filter((board: any) => board.id === this.id)[0]
-      console.log(this.board)
-      this.setTitle(this.board.boardName)
-      this.boardContent = this.board.boardContent
-      this.todo = this.boardContent.todo
-      this.done = this.boardContent.done
-      this.inProgress = this.boardContent.inProgress
-    } else {
-      window.open('/', '_self')
-    }
-    
-
-  }
-
-  checkIfBoardExist(): boolean {
-    let filteredArray = this.boards!.filter((board: any) => board.id == this.id).length;
-    if(!filteredArray) {
-      return false
-    } else {
-      return true
-    }
-  }
-
-  ngOnInit(): void {
-    this.openCurrentBoard()
+    this.getBoard()
   }
 
 }
