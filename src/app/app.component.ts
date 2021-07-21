@@ -6,7 +6,6 @@ import { DialogCreateBoardComponent } from './components/dialog-create-board/dia
 import { Board } from './components/board/board'
 
 import { TodoService } from './services/todo.service'
-import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,8 +19,6 @@ export class AppComponent implements OnInit {
   todo: any;
   
   constructor(fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
     private todoService: TodoService,
     public dialog: MatDialog,) {
     this.options = fb.group({
@@ -60,17 +57,26 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.loadBoards()
-    this.getTodos()
+    //this.getTodos()
+    this.createTodo()
   }
 
   getTodos(): void {
     this.todoService.getAll().subscribe(
       data => {
         this.todo = data;
-        console.log(data)
+        console.log('Data: ' + data)
       },
       error => {
         console.log(error)
+      }
+    )
+  }
+
+  createTodo(): void {
+    this.todoService.create('').subscribe(
+      response => {
+        console.log(response);
       }
     )
   }
