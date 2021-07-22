@@ -26,6 +26,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { DialogCreateBoardComponent } from './components/dialog-create-board/dialog-create-board.component';
+import { ErrorPageComponent } from './components/error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { DialogCreateBoardComponent } from './components/dialog-create-board/dia
     DialogEdittaskFormComponent,
     HomepageComponent,
     DialogCreateBoardComponent,
+    ErrorPageComponent,
   ],
   imports: [
     BrowserModule,

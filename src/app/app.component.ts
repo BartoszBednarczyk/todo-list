@@ -1,9 +1,10 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateBoardComponent } from './components/dialog-create-board/dialog-create-board.component';
 import { Board } from './components/board/board'
+import { Router } from '@angular/router'
 
 import { TodoService } from './services/todo.service'
 @Component({
@@ -11,7 +12,7 @@ import { TodoService } from './services/todo.service'
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   options: FormGroup;
   storage: Storage = window.localStorage;
   boards: Board[] = [];
@@ -19,6 +20,7 @@ export class AppComponent implements OnInit {
   isDataLoaded: boolean = false;
 
   constructor(fb: FormBuilder,
+    private _router: Router,
     private todoService: TodoService,
     public dialog: MatDialog,) {
     this.options = fb.group({
@@ -30,6 +32,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.getBoards()
+    console.log("AGAIN")
+  }
+  @HostListener('unloaded')
+  ngOnDestroy() {
+    console.log("Ended")
   }
 
   // API requestes
@@ -53,8 +60,15 @@ export class AppComponent implements OnInit {
       },
       error => {
         console.log(error)
+        this.openErrorPage();
+        this.changeDataLoadedStatus();
+        
       }
     )
+  }
+
+  openErrorPage(): void {
+    this._router.navigate(['error'])
   }
 
   changeDataLoadedStatus(): void {
