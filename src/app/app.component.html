@@ -1,5 +1,5 @@
 <mat-sidenav-container [hasBackdrop]='true' class="container">
-    
+
 <mat-sidenav #sidenav mode="over" class="example-sidenav"
                  [fixedInViewport]="options.value.fixed">
 
@@ -14,7 +14,7 @@
                      [cdkDropListConnectedTo]="[thrashList]"
                      (cdkDropListDropped)="drop($event)"
                      >
-                        <button *ngFor="let board of boards" class="full-width draggable-button" mat-stroked-button [routerLink]="['/board', board.id]" cdkDrag>{{ board.boardName }}</button>
+                        <button *ngFor="let board of boards" class="full-width draggable-button" mat-stroked-button [routerLink]="['/board', board._id]" cdkDrag>{{ board.boardName }}</button>
                      </div>
                      
                      <div class="new-board-button">
@@ -35,11 +35,17 @@
                      </div>
                  </div>
 </mat-sidenav>
-<mat-sidenav-content class="flex-display">
+<mat-sidenav-content *ngIf="isDataLoaded" class="flex-display">
     <router-outlet></router-outlet>
     <button mat-icon-button color="accent" aria-label="Example icon button with a plus one icon" class="menu-button" mat-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
+</mat-sidenav-content>
+
+<mat-sidenav-content *ngIf="!isDataLoaded" class="flex-display">
+    <div class="main-container">
+        <mat-spinner color="accent"></mat-spinner>
+      </div>
 </mat-sidenav-content>
     
     

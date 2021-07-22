@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { AppRoutingModule } from './app-routing/app-routing.module';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { DialogTaskFormComponent } from './components/dialog-task-form/dialog-task-form.component'
@@ -21,7 +22,8 @@ import { MatSelectModule } from '@angular/material/select'
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatSidenavModule } from '@angular/material/sidenav'
+import { MatSidenavModule } from '@angular/material/sidenav';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { DialogCreateBoardComponent } from './components/dialog-create-board/dialog-create-board.component';
 
@@ -51,7 +53,9 @@ import { DialogCreateBoardComponent } from './components/dialog-create-board/dia
     ReactiveFormsModule,
     MatSnackBarModule,
     MatSidenavModule,
-    MatToolbarModule
+    MatToolbarModule,
+    HttpClientModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

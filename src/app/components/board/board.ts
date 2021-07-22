@@ -3,13 +3,13 @@ import { BoardContent } from './boardContent';
 
 export class Board {
     boardName: string;
-    id: string;
+    _id?: string;
     boardContent: BoardContent;
     
 
     constructor(boardName: string, id: string, boardContent: BoardContent) {
         this.boardName = boardName;
-        this.id = id;
+        this._id = id;
         this.boardContent = boardContent;
     }
 }
