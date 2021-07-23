@@ -1,0 +1,10 @@
+<div class="box" [ngStyle]="{'border-bottom': 'solid 5px' + item.color}" *ngFor="let item of tasksArray" cdkDrag>
+  <div>
+    <h2>{{item.name}}</h2>
+    <p *ngIf="item.isDescriptionVisible">{{item.description}}</p>
+  </div>
+  <button (click)="editTask(item)" class="edit-button" mat-icon-button color="black"
+    aria-label="Example icon button with a home icon" s>
+    <mat-icon>more_horiz</mat-icon>
+  </button>
+</div>

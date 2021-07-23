@@ -21,6 +21,7 @@ export class DialogCreateBoardComponent {
 
   constructor(
     public dialogRef: MatDialogRef<DialogCreateBoardComponent>,
+    @Inject(MAT_DIALOG_DATA) public changeProgressbarStatus: any,
     private _snackBar: MatSnackBar,
     private todoService: TodoService) { 
   }
@@ -30,12 +31,15 @@ export class DialogCreateBoardComponent {
   }
 
   addBoard(data: Board): void {
+    this.changeProgressbarStatus()
     this.todoService.create(data).subscribe(
       response => {
         console.log(response);
+        this.changeProgressbarStatus()
       },
       error => {
-        console.error(error)
+        this.openSnackBar("Something went wrong while creating board. Try again later", 'Close', 3000)
+        this.changeProgressbarStatus()
       }
     )
   }

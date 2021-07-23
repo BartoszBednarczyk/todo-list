@@ -1,31 +1,33 @@
 <h1 mat-dialog-title>Edit task</h1>
-    
-      <mat-form-field color="accent" class="full-width">
-        <mat-label>Task title</mat-label>
-        <input autocomplete="off" matInput [formControl]="name" id="name" required>
-        <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
-      </mat-form-field>
-      <mat-form-field color="accent" class="full-width">
-        <mat-label>Task description</mat-label>
-        <input autocomplete="off" matInput [(ngModel)]="description">
-      </mat-form-field>
-      <mat-checkbox [(ngModel)]="isDescriptionVisible" style="margin: 0 0 5px 0">Show description</mat-checkbox>
-      <mat-form-field class="full-width" color="accent">
-        <mat-label>Panel color</mat-label>
-        <mat-select [(ngModel)]="color">
-          <mat-option value="#ecf0f1" style="background-color: #ecf0f1;">Clouds</mat-option>
-          <mat-option value="#2ecc71" style="background-color: #2ecc71;">Emerald</mat-option>
-          <mat-option value="#3498db" style="background-color: #3498db;">Peter river</mat-option>
-          <mat-option value="#9b59b6" style="background-color: #9b59b6;">Amethyst</mat-option>
-          <mat-option value="#34495e" style="background-color: #34495e;">Wet Asphalt</mat-option>
-          <mat-option value="#f1c40f" style="background-color: #f1c40f;">Sun flower</mat-option>
-          <mat-option value="#e67e22" style="background-color: #e67e22;">Carrot</mat-option>
-          <mat-option value="#e74c3c" style="background-color: #e74c3c;">Alizarin</mat-option>
-        </mat-select>
-      </mat-form-field>
-    
-    <div mat-dialog-actions>
-        <button mat-raised-button color="accent" class="full-width" (click)="editTask()" style="margin: 0 0 10px 0">Edit task</button>
-        <button mat-stroked-button class="full-width" style="margin: 0;" color="warn" (dblclick)="deleteTask()">Delete</button>
-        <p class="delete-text">Click twice to delete</p>
-    </div>
+
+<mat-form-field color="accent" class="full-width">
+  <mat-label>Task title</mat-label>
+  <input autocomplete="off" matInput [formControl]="name" id="name" required>
+  <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
+</mat-form-field>
+<mat-form-field color="accent" class="full-width">
+  <mat-label>Task description</mat-label>
+  <input autocomplete="off" matInput [(ngModel)]="description">
+</mat-form-field>
+<mat-checkbox [(ngModel)]="isDescriptionVisible" style="margin: 0 0 5px 0">Show description</mat-checkbox>
+<mat-form-field class="full-width" color="accent">
+  <mat-label>Panel color</mat-label>
+  <mat-select [(ngModel)]="color">
+    <mat-option value="#ecf0f1" style="background-color: #ecf0f1;">Clouds</mat-option>
+    <mat-option value="#2ecc71" style="background-color: #2ecc71;">Emerald</mat-option>
+    <mat-option value="#3498db" style="background-color: #3498db;">Peter river</mat-option>
+    <mat-option value="#9b59b6" style="background-color: #9b59b6;">Amethyst</mat-option>
+    <mat-option value="#34495e" style="background-color: #34495e;">Wet Asphalt</mat-option>
+    <mat-option value="#f1c40f" style="background-color: #f1c40f;">Sun flower</mat-option>
+    <mat-option value="#e67e22" style="background-color: #e67e22;">Carrot</mat-option>
+    <mat-option value="#e74c3c" style="background-color: #e74c3c;">Alizarin</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<div mat-dialog-actions>
+  <button mat-raised-button color="accent" class="full-width" (click)="editTask()" style="margin: 0 0 10px 0">Edit
+    task</button>
+  <button mat-stroked-button class="full-width" style="margin: 0;" color="warn"
+    (dblclick)="deleteTask()">Delete</button>
+  <p class="delete-text">Click twice to delete</p>
+</div>

@@ -1,55 +1,49 @@
 <mat-sidenav-container [hasBackdrop]='true' class="container">
 
-<mat-sidenav #sidenav mode="over" class="example-sidenav"
-                 [fixedInViewport]="options.value.fixed">
-
-                 <div class="menu-container">
-                     <div class="header">
-                         <h1>Boards</h1>
-                     </div>
-                     <div class="board-list"
-                     cdkDropList
-                     #boardList="cdkDropList"
-                     [cdkDropListData]="boards"
-                     [cdkDropListConnectedTo]="[thrashList]"
-                     (cdkDropListDropped)="drop($event)"
-                     >
-                        <button *ngFor="let board of boards" class="full-width draggable-button" mat-stroked-button [routerLink]="['/board', board._id]" cdkDrag>{{ board.boardName }}</button>
-                     </div>
-                     
-                     <div class="new-board-button">
-                        <button mat-stroked-button color="accent" class="full-width-height" (click)="openCreatingBoardDialog()">
-                            <mat-icon class="icon">add</mat-icon>
-                        </button>
-                     </div>
-
-                     <div class="thrash-button"
-                     cdkDropList
-                     #thrashList="cdkDropList"
-                     [cdkDropListData]="thrash"
-                     [cdkDropListConnectedTo]="[]"
-                     (cdkDropListDropped)="drop($event)">
-                        <button mat-stroked-button color="warn" class="full-width-height">
-                            <mat-icon class="icon">delete</mat-icon>
-                        </button>
-                     </div>
-                 </div>
-</mat-sidenav>
-<mat-sidenav-content *ngIf="isDataLoaded" class="flex-display">
-    <router-outlet></router-outlet>
-    <button mat-icon-button color="accent" aria-label="Example icon button with a plus one icon" class="menu-button" mat-button (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-</mat-sidenav-content>
-
-<mat-sidenav-content *ngIf="!isDataLoaded" class="flex-display">
-    <div class="main-container">
-        <mat-spinner color="accent"></mat-spinner>
+  <mat-sidenav #sidenav mode="over" class="example-sidenav" [fixedInViewport]="options.value.fixed">
+    <mat-progress-bar *ngIf="isProgressbarActive" color="accent" class="absolute-position" mode="indeterminate">
+    </mat-progress-bar>
+    <div class="menu-container">
+      <div class="header">
+        <h1>Boards</h1>
       </div>
-</mat-sidenav-content>
-    
-    
+      <div class="board-list" cdkDropList #boardList="cdkDropList" [cdkDropListData]="boards"
+        [cdkDropListConnectedTo]="[thrashList]" (cdkDropListDropped)="drop($event)">
+        <button *ngFor="let board of boards" class="full-width draggable-button" mat-stroked-button
+          [routerLink]="['/board', board._id]" cdkDrag>{{ board.boardName }}</button>
+      </div>
 
-</mat-sidenav-container>  
+      <div class="new-board-button">
+        <button mat-stroked-button color="accent" class="full-width-height" (click)="openCreatingBoardDialog()">
+          <mat-icon class="icon">add</mat-icon>
+        </button>
+      </div>
 
-    <!-- <app-board class="flex-display"></app-board> -->
+      <div class="thrash-button" cdkDropList #thrashList="cdkDropList" [cdkDropListData]="thrash"
+        [cdkDropListConnectedTo]="[]" (cdkDropListDropped)="drop($event)">
+        <button mat-stroked-button color="warn" class="full-width-height">
+          <mat-icon class="icon">delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content *ngIf="isDataLoaded" class="flex-display">
+    <router-outlet></router-outlet>
+    <button mat-icon-button color="accent" aria-label="Example icon button with a plus one icon" class="menu-button"
+      mat-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </mat-sidenav-content>
+
+  <mat-sidenav-content *ngIf="!isDataLoaded" class="flex-display">
+    <div class="main-container">
+      <mat-spinner color="accent"></mat-spinner>
+    </div>
+  </mat-sidenav-content>
+
+
+
+</mat-sidenav-container>
+
+<!-- <app-board class="flex-display"></app-board> -->

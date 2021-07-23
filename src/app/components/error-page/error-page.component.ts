@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-error-page',
-  templateUrl: './error-page.component.html',
-  styleUrls: ['./error-page.component.sass']
+  template: `<h1>Oops...</h1>
+    <h2>Something went wrong. Please go back and try again!</h2>
+    <button mat-raised-button color="accent" [routerLink]="['/']">
+      Return
+    </button>`,
+  styleUrls: ['./error-page.component.sass'],
 })
-export class ErrorPageComponent implements OnInit {
+export class ErrorPageComponent implements OnInit, OnDestroy {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
+  ngOnDestroy(): void {
+    window.location.reload();
   }
 
+  ngOnInit(): void {}
 }
